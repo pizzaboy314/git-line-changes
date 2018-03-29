@@ -23,28 +23,42 @@ public class Worker {
 	}
 
 	public static String printC3ChartData() {
+		StringBuilder dateTimeString = new StringBuilder();
 		StringBuilder dateString = new StringBuilder();
 		StringBuilder additionString = new StringBuilder();
 		StringBuilder deletionString = new StringBuilder();
+		StringBuilder numFilesChangedString = new StringBuilder();
 		String delim = "";
 		
-		dateString.append("[");
-		additionString.append("[");
-		deletionString.append("[");
+		dateTimeString.append("['DateTime', ");
+		dateString.append("['Date', ");
+		additionString.append("['Total Additions', ");
+		deletionString.append("['Total Deletions', ");
+		numFilesChangedString.append("['Total Files Changed', ");
 		
 		for(Commit c : commits) {
-			dateString.append(delim + "'" + c.getDatetime() + "'");
+			String[] dateTimeArr = c.getDatetime().split(" ");
+			
+			dateTimeString.append(delim + "'" + c.getDatetime() + "'");
+			dateString.append(delim + "'" + dateTimeArr[0] + "'");
 			additionString.append(delim + c.totalFileAdditions());
 			deletionString.append(delim + c.totalFileDeletions());
+			numFilesChangedString.append(delim + c.getChangedFiles().size());
 			
 			delim = ", ";
 		}
 		
+		dateTimeString.append("]");
 		dateString.append("]");
 		additionString.append("]");
 		deletionString.append("]");
+		numFilesChangedString.append("]");
 		
-		return dateString.toString() + "\n\n" + additionString.toString() + "\n\n" + deletionString.toString();
+		return dateTimeString.toString() + "\n\n" + 
+			dateString.toString() + "\n\n" + 
+			additionString.toString() + "\n\n" + 
+			deletionString.toString() + "\n\n" + 
+			numFilesChangedString.toString();
 	}
 
 	/**

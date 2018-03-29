@@ -29,11 +29,11 @@ public class Commit {
 		changedFiles.add(fc);
 	}
 	
-	public Integer totalFileChanges() {
+	public Integer totalFilesWithChanges() {
 		return new Integer(changedFiles.size());
 	}
 	
-	public Integer totalFileAdditions() {
+	public Integer totalFilesWithAdditions() {
 		int i = 0;
 		for(FileChange fc: changedFiles) {
 			if(fc.getAdditions() > 0 && fc.getDeletions() == 0) {
@@ -43,11 +43,31 @@ public class Commit {
 		return new Integer(i);
 	}
 	
-	public Integer totalFileDeletions() {
+	public Integer totalFilesWithDeletions() {
 		int i = 0;
 		for(FileChange fc: changedFiles) {
 			if(fc.getDeletions() > 0 && fc.getAdditions() == 0) {
 				i++;
+			}
+		}
+		return new Integer(i);
+	}
+	
+	public Integer totalFileAdditions() {
+		int i = 0;
+		for(FileChange fc: changedFiles) {
+			if(fc.getAdditions() > 0) {
+				i = i + fc.getAdditions();
+			}
+		}
+		return new Integer(i);
+	}
+	
+	public Integer totalFileDeletions() {
+		int i = 0;
+		for(FileChange fc: changedFiles) {
+			if(fc.getDeletions() > 0) {
+				i = i + fc.getDeletions();
 			}
 		}
 		return new Integer(i);

@@ -1,0 +1,9 @@
+bin/
+.settings/
+
+*.txt
+*.xml
+*.lnk
+.classpath
+.project
+stats.txt

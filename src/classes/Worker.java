@@ -19,7 +19,32 @@ public class Worker {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println(printC3ChartData());
+	}
 
+	public static String printC3ChartData() {
+		StringBuilder dateString = new StringBuilder();
+		StringBuilder additionString = new StringBuilder();
+		StringBuilder deletionString = new StringBuilder();
+		String delim = "";
+		
+		dateString.append("[");
+		additionString.append("[");
+		deletionString.append("[");
+		
+		for(Commit c : commits) {
+			dateString.append(delim + "'" + c.getDatetime() + "'");
+			additionString.append(delim + c.totalFileAdditions());
+			deletionString.append(delim + c.totalFileDeletions());
+			
+			delim = ", ";
+		}
+		
+		dateString.append("]");
+		additionString.append("]");
+		deletionString.append("]");
+		
+		return dateString.toString() + "\n\n" + additionString.toString() + "\n\n" + deletionString.toString();
 	}
 
 	/**
